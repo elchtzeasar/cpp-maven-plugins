@@ -75,6 +75,13 @@ public abstract class AbstractGccCompiler extends AbstractCompiler {
 				executor.getCommandline().createArg().setValue("-I" + includeDirectory);
 		}
 
+		executor.getCommandline().createArg().setValue("-I" + settings.getCodeDirectory(null, false));
+		executor.getCommandline().createArg().setValue("-I" + settings.getCodeDirectory(getTargetEnvironment(), false));
+		if( settings.isTestCompilation() ) {
+			executor.getCommandline().createArg().setValue("-I" + settings.getCodeDirectory(null, true));
+			executor.getCommandline().createArg().setValue("-I" + settings.getCodeDirectory(getTargetEnvironment(), true));
+		}
+
 		for(NativeCodeFile codeFile : batch.getCodeFiles())
 			executor.getCommandline().createArg().setValue(codeFile.getSourceFile().getName());
 
