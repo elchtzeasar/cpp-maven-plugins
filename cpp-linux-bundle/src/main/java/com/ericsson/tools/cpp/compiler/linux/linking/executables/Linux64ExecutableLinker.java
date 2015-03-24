@@ -33,6 +33,6 @@ public class Linux64ExecutableLinker extends AbstractGccExecutableLinker {
 	
 	@Override
 	protected String getMandatoryLinkerArguments() {
-		return super.getMandatoryLinkerArguments() + " -m elf_x86_64";
+		return super.getMandatoryLinkerArguments() + " -m64";
 	}
 }

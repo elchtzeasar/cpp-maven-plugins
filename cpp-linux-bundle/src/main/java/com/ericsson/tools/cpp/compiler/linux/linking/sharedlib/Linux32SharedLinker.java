@@ -31,6 +31,6 @@ public class Linux32SharedLinker extends AbstractGccSharedLinker {
 
 	@Override
 	protected String getMandatoryLinkerArguments() {
-		return super.getMandatoryLinkerArguments() + " -m elf_i386";
+		return super.getMandatoryLinkerArguments() + " -m32";
 	}
 }
