@@ -31,6 +31,6 @@ public class Linux64SharedLinker extends AbstractGccSharedLinker {
 	
 	@Override
 	protected String getMandatoryLinkerArguments() {
-		return super.getMandatoryLinkerArguments() + " -m64";
+		return super.getMandatoryLinkerArguments() + " -m elf_x86_64";
 	}
 }
