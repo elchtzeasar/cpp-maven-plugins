@@ -33,6 +33,6 @@ public class Linux32ExecutableLinker extends AbstractGccExecutableLinker {
 	
 	@Override
 	protected String getMandatoryLinkerArguments() {
-		return super.getMandatoryLinkerArguments() + " -m elf_i386";
+		return super.getMandatoryLinkerArguments() + " -Wl,-m,elf_i386 -m32";
 	}
 }
