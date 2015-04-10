@@ -70,8 +70,10 @@ public abstract class AbstractCarMojo extends AbstractMojo {
 	}
 
 	protected void createAttachedArtifacts(final ArchivingSettings settings, final String classifierPrefix, final File attachedDir) throws MojoExecutionException {
-		if(!attachedDir.exists())
+		if(!attachedDir.exists()) {
+            getLog().warn("Directory " + attachedDir + " does not exist. Skipping creation of attached artifact classified \"" + classifierPrefix + "\".");
 			return;
+		}
 
 		for(File file : attachedDir.listFiles())
 			if(file.isDirectory()) {
@@ -82,7 +84,13 @@ public abstract class AbstractCarMojo extends AbstractMojo {
 	}
 
 	private void createMainArtifact(final ArchivingSettings settings) throws MojoExecutionException {
-		final File archive = createArchive(settings.getMainOutputDirectory(false), getArchiveName(null));
+	    File directory = settings.getMainOutputDirectory(false);
+        if(!directory.exists()) {
+            getLog().warn("Directory " + directory + " does not exist. Skipping creation of main artifact");
+            return;
+        }
+
+        final File archive = createArchive(directory, getArchiveName(null));
 		project.getArtifact().setFile(archive);
 	}
 
@@ -96,10 +104,10 @@ public abstract class AbstractCarMojo extends AbstractMojo {
 			return archive;
 		} 
 		catch (ArchiverException e) {
-			throw new MojoExecutionException("Could not create archive.", e );
+			throw new MojoExecutionException("Could not create archive (" + archiveName + "):", e );
 		} 
 		catch (IOException e) {
-			throw new MojoExecutionException("Could not create archive.", e );
+			throw new MojoExecutionException("Could not create archive.(" + archiveName + "):", e );
 		}
 	}
 
